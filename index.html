@@ -6,23 +6,23 @@
 <title>Diagnóstico ELO — Posicionamento no Instagram</title>
 <style>
   :root{
-    --cream:#FBF3EF;
-    --cream2:#F6E7DF;
-    --rose:#B76E79;
-    --rose-soft:#C99BA1;
-    --rose-pale:#E7C9CB;
-    --tan:#C9A87C;
-    --tan-soft:#D9C1A0;
-    --brown:#4A2C2A;
-    --brown-soft:#6E4B45;
-    --line:#E3CFC7;
+    --cream:#F6F1E7;
+    --cream2:#ECE3D2;
+    --rose:#6A7748;
+    --rose-soft:#A3AB7E;
+    --rose-pale:#D6DBBE;
+    --tan:#B0854E;
+    --tan-soft:#D3BE97;
+    --brown:#33302A;
+    --brown-soft:#5F594E;
+    --line:#E2D9C6;
     --ok:#7C9A72;
-    --shadow:0 10px 30px rgba(74,44,42,.10);
+    --shadow:0 10px 30px rgba(51,48,42,.10);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{
     font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
-    background:linear-gradient(160deg,#FDF7F3 0%,#F6E7DF 100%);
+    background:linear-gradient(160deg,#FBF8F0 0%,#ECE3D2 100%);
     color:var(--brown);
     min-height:100vh;
     line-height:1.55;
@@ -68,9 +68,9 @@
     border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;background:#fff;
     cursor:pointer;transition:.15s;display:flex;align-items:center;gap:12px;font-size:15px;
   }
-  .opt:hover{border-color:var(--rose-soft);background:#fffdfc}
+  .opt:hover{border-color:var(--rose-soft);background:#FCFAF4}
   .opt .dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--rose-soft);flex:0 0 auto;transition:.15s}
-  .opt.sel{border-color:var(--rose);background:#FBEDEE}
+  .opt.sel{border-color:var(--rose);background:#EEF1E1}
   .opt.sel .dot{background:var(--rose);border-color:var(--rose);box-shadow:inset 0 0 0 3px #fff}
   .opt b{font-weight:700}
   .opt small{display:block;color:var(--brown-soft);font-weight:400;font-size:12.5px;margin-top:2px}
@@ -81,9 +81,9 @@
   /* Upload */
   .drop{
     border:2px dashed var(--rose-soft);border-radius:16px;padding:26px;text-align:center;
-    background:#fffdfc;cursor:pointer;transition:.15s;color:var(--brown-soft);
+    background:#FCFAF4;cursor:pointer;transition:.15s;color:var(--brown-soft);
   }
-  .drop:hover{background:#FBEDEE}
+  .drop:hover{background:#EEF1E1}
   .drop b{color:var(--rose);display:block;font-size:16px;margin-bottom:4px}
   .drop img{max-width:180px;border-radius:12px;margin-top:12px;box-shadow:var(--shadow)}
   /* Buttons */
@@ -93,7 +93,7 @@
     cursor:pointer;font-family:inherit;transition:.15s;letter-spacing:.5px;
   }
   .btn.prim{background:var(--rose);color:#fff}
-  .btn.prim:hover{background:#a55e69}
+  .btn.prim:hover{background:#556036}
   .btn.ghost{background:transparent;color:var(--brown-soft);border:1.5px solid var(--line);flex:0 0 auto;padding:15px 22px}
   .btn.ghost:hover{background:#fff}
   .btn:disabled{opacity:.4;cursor:not-allowed}
@@ -106,7 +106,7 @@
   .block:first-of-type{border-top:none}
   .block h3{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--rose);font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px}
   .block h3 .n{width:24px;height:24px;border-radius:50%;background:var(--rose);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:13px;flex:0 0 auto}
-  .frase{font-size:19px;font-weight:700;color:var(--brown);background:#FBEDEE;border-radius:14px;padding:18px;border-left:4px solid var(--rose)}
+  .frase{font-size:19px;font-weight:700;color:var(--brown);background:#EEF1E1;border-radius:14px;padding:18px;border-left:4px solid var(--rose)}
   .bio-box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;font-size:15px;white-space:pre-wrap;line-height:1.7}
   .copy{font-size:12px;color:var(--rose);cursor:pointer;font-weight:700;margin-top:8px;display:inline-block}
   .list{list-style:none;display:flex;flex-direction:column;gap:10px}
@@ -131,6 +131,14 @@
   .center{text-align:center}
   .intro-icon{font-size:44px;margin-bottom:10px}
   @media(max-width:520px){.opts.grid{grid-template-columns:1fr}.card{padding:24px 18px}}
+  /* CTA final */
+  .cta{background:linear-gradient(150deg,var(--brown) 0%,#4A4636 100%);border-radius:20px;padding:32px 24px;margin-top:26px;text-align:center;box-shadow:var(--shadow)}
+  .cta-tag{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--tan-soft);font-weight:800;margin-bottom:10px}
+  .cta-title{font-size:22px;font-weight:800;color:#fff;line-height:1.25;margin-bottom:10px}
+  .cta-sub{font-size:15px;color:#EDE6D5;line-height:1.6;margin-bottom:22px}
+  .cta-sub b{color:#fff}
+  .cta-btn{display:inline-block;background:var(--tan);color:#fff;font-weight:800;font-size:15px;letter-spacing:.5px;text-decoration:none;padding:16px 26px;border-radius:14px;transition:.15s;box-shadow:0 6px 18px rgba(176,133,78,.40)}
+  .cta-btn:hover{background:#9A713F;transform:translateY(-1px)}
 </style>
 </head>
 <body>
@@ -260,7 +268,7 @@ function render(){
 
   if(s.type==="intro"){
     stage.innerHTML=`<div class="center">
-      <div class="intro-icon">🕊️</div>
+      <div class="intro-icon">🧭</div>
       <h2 class="q">Antes de vender, você precisa se posicionar.</h2>
       <p class="hint" style="margin-top:10px">Responda algumas perguntas rápidas e receba um plano personalizado: como estruturar sua <b>bio</b>, o que colocar nos <b>destaques</b>, <b>o que postar</b> e as <b>cores</b> que passam a sua mensagem.</p>
       <p class="hint" style="font-style:italic;color:var(--rose)">Leva menos de 4 minutos. Nada é enviado — tudo fica no seu aparelho.</p>
@@ -467,6 +475,13 @@ function renderResult(){
   html+=`<div class="center" style="margin-top:20px">
     <button class="btn prim" style="max-width:280px;margin:0 auto" onclick="window.print()">🖨️ Salvar / imprimir meu plano</button>
     <br><span class="copy" onclick="restart()" style="margin-top:14px">↺ Refazer o diagnóstico</span>
+  </div>`;
+
+  html+=`<div class="cta">
+    <div class="cta-tag">Próximo passo</div>
+    <h3 class="cta-title">Seu diagnóstico está pronto. Agora é hora de vender.</h3>
+    <p class="cta-sub">Conheça o <b>Quem Vende Vence</b> — o método que transforma o seu posicionamento em clientes de verdade, todos os dias.</p>
+    <a class="cta-btn" href="https://grupopasdiora.github.io/quemvendevence/" target="_blank" rel="noopener">QUERO CONHECER O QUEM VENDE VENCE &rarr;</a>
   </div>`;
 
   stage.innerHTML=html;
