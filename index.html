@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Pré-diagnóstico estratégico de posicionamento no Instagram com a Mel.">
+  <meta name="description" content="Diagnóstico simples e personalizado do seu perfil no Instagram com a Mel.">
   <meta name="referrer" content="no-referrer">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'unsafe-inline'; script-src 'unsafe-inline'; base-uri 'self'; form-action 'self'">
-  <title>Diagnóstico Mel — Posicionamento no Instagram</title>
+  <title>Diagnóstico Mel — Clareza para o seu Instagram</title>
 </head>
 <body>
 <main class="diagnostico-container">
@@ -71,7 +71,8 @@
     .option {
       border: 1.5px solid var(--mel-line); border-radius: 14px; padding: 14px 16px;
       background: var(--mel-cream); cursor: pointer; transition: all 0.15s ease;
-      display: flex; align-items: center; gap: 12px; font-size: 15px;
+      display: flex; align-items: center; gap: 12px; font-size: 15px; font-family: inherit;
+      color: var(--mel-dark); width: 100%; text-align: left;
     }
     .option:hover { border-color: var(--mel-vinho-pale); background: #FDF8F5; }
     .option.selected { border-color: var(--mel-vinho); background: #F5E8EB; }
@@ -87,6 +88,7 @@
     }
     textarea:focus, input[type="text"]:focus { outline: none; border-color: var(--mel-vinho); }
     textarea { min-height: 90px; }
+    .field-error { color: #A33D2B; font-size: 13px; font-weight: 600; margin-top: 8px; }
     label.field-label { display: block; font-weight: 600; font-size: 14px; margin: 16px 0 6px; color: var(--mel-dark); }
     .drop-zone {
       border: 2px dashed var(--mel-vinho-pale); border-radius: 16px; padding: 32px 24px;
@@ -130,6 +132,32 @@
     .warn-box b { color: #8B4A2A; }
     .copy-btn { font-size: 12px; color: var(--mel-vinho); cursor: pointer; font-weight: 700; margin-top: 8px; display: inline-block; background: none; border: none; padding: 0; }
     .copy-btn:hover { text-decoration: underline; }
+    .plain-intro { font-size: 14px; color: var(--mel-dark-soft); margin: 0 0 18px; }
+    .simple-card { background: var(--mel-cream); border: 1px solid var(--mel-line); border-radius: 14px; padding: 16px; margin-top: 10px; }
+    .simple-card p { margin: 0; }
+    .simple-card p + p { margin-top: 8px; }
+    .simple-label { display: block; color: var(--mel-vinho); font-size: 11px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 5px; }
+    .positive-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+    .positive-list li { position: relative; padding: 13px 14px 13px 42px; border: 1px solid var(--mel-line); border-radius: 12px; background: var(--mel-cream); font-size: 14.5px; }
+    .positive-list li::before { content: '✓'; position: absolute; left: 14px; top: 12px; color: var(--mel-ok); font-weight: 900; }
+    .priority-card { border-radius: 16px; padding: 18px; background: linear-gradient(135deg, var(--mel-vinho), #46121D); color: #fff; }
+    .priority-card .priority-title { color: #F5B097; font-size: 12px; font-weight: 800; letter-spacing: 1.3px; text-transform: uppercase; margin-bottom: 7px; }
+    .priority-card p { margin: 0; font-size: 17px; font-weight: 700; line-height: 1.55; }
+    .status-pill { display: inline-block; border-radius: 999px; padding: 5px 11px; margin-bottom: 10px; background: #F5E8EB; color: var(--mel-vinho); font-size: 12px; font-weight: 800; }
+    .content-ideas { counter-reset: idea; list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+    .content-ideas li { counter-increment: idea; position: relative; background: var(--mel-cream); border: 1px solid var(--mel-line); border-radius: 12px; padding: 14px 14px 14px 48px; font-size: 14px; line-height: 1.55; }
+    .content-ideas li::before { content: counter(idea); position: absolute; left: 14px; top: 14px; width: 24px; height: 24px; border-radius: 50%; background: var(--mel-vinho); color: #fff; display: grid; place-items: center; font-size: 12px; font-weight: 800; }
+    .content-format { color: var(--mel-vinho); font-weight: 800; }
+    .profile-record { background: var(--mel-dark); color: #fff; border-radius: 20px; padding: 20px; margin-top: 20px; }
+    .profile-record h3 { color: #F5B097; margin: 0 0 6px; font-size: 15px; letter-spacing: 1.4px; text-transform: uppercase; }
+    .profile-record p { color: #F3E9E5; font-size: 13px; margin: 0 0 16px; }
+    .profile-main { width: 100%; max-height: 560px; object-fit: contain; display: block; background: #fff; border-radius: 14px; }
+    .profile-thumbs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px; }
+    .profile-thumbs figure { margin: 0; }
+    .profile-thumbs img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; border-radius: 12px; background: #fff; }
+    .profile-caption { color: #EBDCD6; font-size: 11px; margin-top: 5px; text-align: center; }
+    .report-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
+    .report-actions .btn { flex: 0 1 220px; }
     @media (max-width: 620px) {
       .brand { grid-template-columns: 1fr; }
       .brand-photo { min-height: 310px; }
@@ -137,7 +165,14 @@
       .brand-copy { padding: 25px 24px 28px; text-align: center; }
       .brand h1 { font-size: 25px; }
     }
-    @media (max-width: 520px) { .options.grid { grid-template-columns: 1fr; } .score-grid { grid-template-columns: 1fr; } .preview-grid { grid-template-columns: repeat(2, 1fr); } .card { padding: 22px 18px; } }
+    @media (max-width: 520px) { .options.grid { grid-template-columns: 1fr; } .score-grid { grid-template-columns: 1fr; } .preview-grid { grid-template-columns: repeat(2, 1fr); } .profile-thumbs { grid-template-columns: 1fr; } .card { padding: 22px 18px; } }
+    @media print {
+      html, body { background: #fff; }
+      .brand, .progress-bar, .step-indicator, .report-actions { display: none !important; }
+      .diagnostico-container { max-width: none; padding: 0; }
+      .card { box-shadow: none; border: 0; padding: 0; }
+      .block, .simple-card, .content-ideas li, .positive-list li { break-inside: avoid; }
+    }
     .progress-bar { height: 4px; background: var(--mel-line); border-radius: 4px; margin-bottom: 20px; overflow: hidden; }
     .progress-fill { height: 100%; background: var(--mel-vinho); border-radius: 4px; transition: width 0.4s ease; }
     .insight-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; margin-bottom: 8px; }
@@ -163,8 +198,8 @@
     <div class="brand-copy">
       <div class="hero-quote">Quem vende, vence.</div>
       <h1>Mel</h1>
-      <p class="tagline">Diagnóstico de Posicionamento no Instagram</p>
-      <p class="brand-description">Sua consultora estratégica para identificar o que fortalece sua mensagem — e o que pode estar te invisibilizando.</p>
+      <p class="tagline">Clareza para o seu Instagram</p>
+      <p class="brand-description">Responda perguntas simples e descubra o que manter, o que ajustar e qual deve ser o seu primeiro passo.</p>
     </div>
   </div>
 
@@ -173,7 +208,7 @@
   <div id="app" aria-live="polite"></div>
 
   <script>
-    const state = { step: 0, answers: {}, images: [], adaptativa: [], report: null };
+    const state = { step: 0, answers: {}, images: [], report: null };
 
     function escapeHTML(value) {
       return String(value ?? '').replace(/[&<>'"]/g, char => ({
@@ -182,45 +217,78 @@
     }
 
     const baseQuestions = [
-      { id: 'nome', type: 'text', label: 'Identificação', question: 'Qual é o seu nome ou nome da marca?', hint: 'Como a Mel vai te chamar no relatório?', placeholder: 'Ex: Ana Silva, Ateliê Flora...' },
-      { id: 'nicho', type: 'text', label: 'Nicho', question: 'O que você vende e para quem?', hint: 'Descreva sua oferta principal e sua cliente ideal em uma frase.', placeholder: 'Ex: Ajudo mães empreendedoras a organizarem a rotina sem culpa...' },
-      { id: 'preco', type: 'choice', label: 'Modelo de negócio', question: 'Qual é a faixa de preço da sua oferta principal?', options: [
-        { value: 'baixo', label: 'Até R$ 300', desc: 'Produtos digitais de entrada, ebooks, planners' },
-        { value: 'medio', label: 'R$ 300 a R$ 2.000', desc: 'Cursos, mentorias em grupo, serviços' },
-        { value: 'alto', label: 'Acima de R$ 2.000', desc: 'Mentorias 1:1, consultorias, serviços premium' }
-      ]},
-      { id: 'momento', type: 'choice', label: 'Jornada da cliente', question: 'Em que momento da vida sua cliente procura você?', options: [
-        { value: 'dor', label: 'No auge da dor', desc: 'Ela está desesperada, precisa de solução agora' },
-        { value: 'transicao', label: 'Em transição', desc: 'Mudança de fase, carreira, relacionamento, maternidade' },
-        { value: 'crescimento', label: 'Buscando crescimento', desc: 'Já está bem, mas quer ir para o próximo nível' }
-      ]},
-      { id: 'medo', type: 'text', label: 'Psicologia da persona', question: 'Qual medo, vergonha ou frustração sua cliente não verbaliza?', hint: 'O que ela pensa mas não conta nem para amigas próximas?', placeholder: 'Ex: Tenho medo de ser uma péssima mãe por não conseguir conciliar tudo...' },
-      { id: 'tentou', type: 'text', label: 'Histórico de tentativas', question: 'O que ela já tentou e por que não funcionou?', hint: 'Isso ajuda a Mel a posicionar sua solução como a verdadeira resposta.', placeholder: 'Ex: Já comprou vários cursos genéricos, mas nenhum considerava a realidade dela...' },
-      { id: 'transformacao', type: 'text', label: 'Transformação', question: 'Qual transformação concreta e emocional seu serviço proporciona?', hint: 'O "antes e depois" real da vida dela.', placeholder: 'Ex: De sobrecarregada e culpada para tranquila e presente...' },
-      { id: 'historia', type: 'text', label: 'Legitimidade', question: 'Qual história pessoal dá legitimidade ao seu trabalho?', hint: 'Por que VOCÊ é a pessoa certa para resolver isso?', placeholder: 'Ex: Passei pelo mesmo burnout que minhas clientes e desenvolvi um método...' },
-      { id: 'conteudo', type: 'choice', label: 'Produção de conteúdo', question: 'Que tipo de conteúdo você consegue produzir com constância?', options: [
-        { value: 'texto', label: 'Texto e carrosséis', desc: 'Escrever é seu forte' },
-        { value: 'video', label: 'Vídeos e Reels', desc: 'Se expressa bem em vídeo' },
-        { value: 'audio', label: 'Áudio e Stories', desc: 'Conversa natural e próxima' },
-        { value: 'visual', label: 'Fotografia e design', desc: 'Olhar estético apurado' }
-      ]},
-      { id: 'objetivo', type: 'choice', label: 'Objetivo estratégico', question: 'Qual é seu objetivo principal no Instagram hoje?', options: [
-        { value: 'autoridade', label: 'Construir autoridade', desc: 'Ser reconhecida como referência' },
-        { value: 'vendas', label: 'Aumentar vendas', desc: 'Converter seguidores em clientes' },
-        { value: 'conexao', label: 'Fortalecer conexão', desc: 'Criar comunidade fiel' },
-        { value: 'visibilidade', label: 'Ganhar visibilidade', desc: 'Alcance e reconhecimento' }
-      ]}
+      {
+        id: 'nome', type: 'input', label: 'Sobre você',
+        question: 'Como você quer ser chamada no diagnóstico?',
+        hint: 'Pode ser o seu nome ou o nome da sua marca.',
+        placeholder: 'Ex: Ana Silva ou Ateliê Flora'
+      },
+      {
+        id: 'oferta', type: 'text', label: 'Seu trabalho',
+        question: 'O que você vende hoje?',
+        hint: 'Escreva o nome do serviço ou produto e explique, de forma simples, o que a cliente recebe.',
+        placeholder: 'Ex: Consultoria de estilo com 3 encontros e um guia personalizado'
+      },
+      {
+        id: 'cliente', type: 'text', label: 'Sua cliente',
+        question: 'Quem mais precisa do que você vende?',
+        hint: 'Pense na pessoa que tem mais chance de comprar de você agora.',
+        placeholder: 'Ex: Mulheres empreendedoras que se sentem inseguras com a própria imagem'
+      },
+      {
+        id: 'resultado', type: 'text', label: 'O resultado',
+        question: 'O que essa pessoa quer conseguir ao contratar você?',
+        hint: 'Conte a mudança que ela busca, não apenas o serviço que ela compra.',
+        placeholder: 'Ex: Vestir-se com segurança e transmitir profissionalismo sem perder a personalidade'
+      },
+      {
+        id: 'bio', type: 'text', label: 'Seu perfil hoje',
+        question: 'O que está escrito na sua bio hoje?',
+        hint: 'Copie a bio como ela aparece no Instagram. Se não tiver uma, escreva “não tenho”.',
+        placeholder: 'Cole aqui as linhas da sua bio atual'
+      },
+      {
+        id: 'destaques', type: 'text', label: 'Seus destaques',
+        question: 'Quais destaques aparecem no seu perfil?',
+        hint: 'Escreva os nomes separados por vírgula. Se não tiver, escreva “não tenho”.',
+        placeholder: 'Ex: Sobre mim, Serviços, Clientes, Bastidores'
+      },
+      {
+        id: 'fixados', type: 'text', label: 'Seus posts fixados',
+        question: 'Sobre o que falam os seus posts fixados?',
+        hint: 'Escreva um tema por linha. Se não tiver posts fixados, escreva “não tenho”.',
+        placeholder: 'Ex:\nMinha história\nComo funciona a consultoria\nDepoimento de uma cliente'
+      },
+      {
+        id: 'prova', type: 'text', label: 'O que gera confiança',
+        question: 'O que mostra que o seu trabalho funciona?',
+        hint: 'Pode ser um resultado, depoimento, experiência profissional ou transformação que você viveu.',
+        placeholder: 'Ex: Mais de 40 clientes atendidas e depoimentos sobre aumento de confiança'
+      },
+      {
+        id: 'dificuldade', type: 'choice', label: 'Seu maior desafio',
+        question: 'O que está mais difícil no seu Instagram hoje?',
+        hint: 'Escolha apenas uma opção. Ela vai definir sua prioridade.',
+        options: [
+          { value: 'clareza', label: 'Explicar o que vendo', desc: 'As pessoas não entendem rapidamente o meu trabalho' },
+          { value: 'oferta', label: 'Mostrar minha oferta', desc: 'Eu apareço, mas quase não falo do que está à venda' },
+          { value: 'conteudo', label: 'Saber o que postar', desc: 'Tenho muitas ideias ou fico sem direção' },
+          { value: 'prova', label: 'Mostrar resultados', desc: 'Meu perfil ainda gera pouca confiança' },
+          { value: 'venda', label: 'Levar à compra', desc: 'As pessoas acompanham, mas não dão o próximo passo' }
+        ]
+      },
+      {
+        id: 'formato', type: 'choice', label: 'Conteúdo possível',
+        question: 'Qual formato você consegue criar com mais facilidade?',
+        hint: 'As 7 ideias serão adaptadas ao formato que cabe na sua rotina.',
+        options: [
+          { value: 'carrossel', label: 'Carrossel', desc: 'Prefiro organizar ideias em texto e imagens' },
+          { value: 'reels', label: 'Reels', desc: 'Consigo explicar melhor falando em vídeo' },
+          { value: 'stories', label: 'Stories', desc: 'Gosto de mostrar e conversar no dia a dia' },
+          { value: 'misto', label: 'Um pouco de cada', desc: 'Posso alternar formatos durante a semana' }
+        ]
+      }
     ];
-
-    const adaptiveQuestions = {
-      autoridade: { id: 'adapt_autoridade', question: 'Você mencionou autoridade. O que diferencia seu método do que já existe no mercado?', hint: 'Seja específica. Não vale dizer "eu me importo mais".', placeholder: 'Ex: Meu método considera o ciclo menstrual na produtividade...' },
-      vendas: { id: 'adapt_vendas', question: 'Você quer vender mais. Qual é a principal objeção que ouve de potenciais clientes?', hint: 'A Mel vai usar isso para criar conteúdo de quebra de objeções.', placeholder: 'Ex: "Não tenho tempo", "É muito caro", "Já tentei e não deu certo"...' },
-      conexao: { id: 'adapt_conexao', question: 'Você quer conexão. Quais são os 3 valores não negociáveis que você comunica?', hint: 'O que você nunca abriria mão de dizer, mesmo que perdesse seguidores?', placeholder: 'Ex: Honestidade, vulnerabilidade, liberdade...' },
-      visibilidade: { id: 'adapt_visibilidade', question: 'Você quer visibilidade. O que você faz diferente que poderia viralizar?', hint: 'Pense em formatos, ângulos ou opiniões contrárias ao senso comum.', placeholder: 'Ex: Mostro a realidade por trás de um negócio de 6 dígitos...' },
-      dor: { id: 'adapt_dor', question: 'Sua cliente está na dor. O que acontece numa terça-feira comum na vida dela?', hint: 'Descreva uma cena específica. Isso torna a persona reconhecível.', placeholder: 'Ex: Acorda às 6h, já estressada, com 47 mensagens no WhatsApp...' },
-      transicao: { id: 'adapt_transicao', question: 'Ela está em transição. O que ela precisa ouvir para se sentir segura de investir?', hint: 'Qual é a prova social ou argumento que tira o medo dela?', placeholder: 'Ex: Ver que outras mulheres na mesma fase conseguiram...' },
-      crescimento: { id: 'adapt_crescimento', question: 'Ela busca crescimento. O que ela já conquistou e qual é o próximo nível?', hint: 'Posicione seu serviço como a ponte entre onde ela está e onde quer chegar.', placeholder: 'Ex: Já tem renda, mas quer escalabilidade sem burnout...' }
-    };
 
     function cleanSentence(value) {
       return String(value || '').replace(/\s+/g, ' ').trim().replace(/[.!?]+$/, '');
@@ -233,119 +301,189 @@
       return phrase.charAt(0).toUpperCase() + phrase.slice(1);
     }
 
+    function limitChars(value, limit) {
+      const text = cleanSentence(value);
+      if (text.length <= limit) return text;
+      const shortened = text.slice(0, limit - 1).replace(/\s+\S*$/, '').trim();
+      return `${shortened || text.slice(0, limit - 1)}…`;
+    }
+
+    function lowerFirst(value) {
+      const text = cleanSentence(value);
+      return text ? text.charAt(0).toLowerCase() + text.slice(1) : text;
+    }
+
+    function normalize(value) {
+      return cleanSentence(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    }
+
+    function isMissing(value) {
+      return /^(não|nao)\s+(tenho|possuo)|^(nenhum|nenhuma)|^sem\s+/i.test(cleanSentence(value));
+    }
+
+    function meaningfulWords(value) {
+      const ignored = new Set(['para', 'como', 'mais', 'uma', 'com', 'que', 'das', 'dos', 'por', 'seu', 'sua', 'meu', 'minha', 'hoje', 'elas', 'eles', 'pessoa', 'mulher', 'mulheres']);
+      return normalize(value).split(/[^a-z0-9]+/).filter(word => word.length >= 4 && !ignored.has(word));
+    }
+
+    function sharesMeaning(text, reference) {
+      const source = normalize(text);
+      return meaningfulWords(reference).some(word => source.includes(word));
+    }
+
+    function splitItems(value) {
+      if (isMissing(value)) return [];
+      return String(value || '').split(/\n|,|;/).map(cleanSentence).filter(Boolean);
+    }
+
+    function joinNatural(items) {
+      if (!items.length) return '';
+      if (items.length === 1) return items[0];
+      return `${items.slice(0, -1).join(', ')} e ${items[items.length - 1]}`;
+    }
+
     function gerarRelatorio() {
       const a = state.answers;
       const nome = a.nome || 'Você';
-      const nicho = a.nicho || '';
-      const preco = a.preco || 'medio';
-      const momento = a.momento || 'transicao';
-      const medo = a.medo || '';
-      const tentou = a.tentou || '';
-      const transformacao = a.transformacao || '';
-      const historia = a.historia || '';
-      const conteudo = a.conteudo || 'texto';
-      const objetivo = a.objetivo || 'autoridade';
-      const respostasAdaptativas = state.adaptativa
-        .map(pergunta => ({ pergunta: pergunta.question, resposta: a[pergunta.id] || '' }))
-        .filter(item => item.resposta);
+      const oferta = cleanSentence(a.oferta).replace(/^(eu\s+)?(vendo|ofereço|ofereco|faço|faco|trabalho com)\s+/i, '');
+      const cliente = cleanSentence(a.cliente).replace(/^(eu\s+)?(atendo|meu público é|minhas clientes são)\s+/i, '');
+      const resultado = cleanSentence(a.resultado).replace(/^(ela|ele|elas|eles)\s+(quer|querem|busca|buscam)\s+/i, '');
+      const bio = cleanSentence(a.bio);
+      const prova = cleanSentence(a.prova);
+      const dificuldade = a.dificuldade || 'clareza';
+      const formato = a.formato || 'misto';
 
-      const temaNicho = compactPhrase(nicho, 'Seu mercado');
-      const temaMedo = compactPhrase(medo.replace(/^tem\s+medo\s+de\s*/i, ''), 'A dor escondida');
-      const temaTransformacao = compactPhrase(transformacao, 'Transformação real');
-      const temaTentativa = compactPhrase(tentou.replace(/^já\s+tentou\s*/i, '').split(/[,.]/)[0], 'Tentativas frustradas');
-      const respostaObjetivo = cleanSentence(a[`adapt_${objetivo}`]);
-      const respostaMomento = cleanSentence(a[`adapt_${momento}`]);
+      const ofertaCurta = compactPhrase(oferta, 'seu serviço principal', 9);
+      const clienteCurta = compactPhrase(cliente, 'sua cliente ideal', 10);
+      const resultadoCurto = compactPhrase(resultado, 'a mudança que ela procura', 10);
+      const provaCurta = compactPhrase(prova, 'um resultado real do seu trabalho', 12);
+      const bioHasOffer = !isMissing(bio) && sharesMeaning(bio, oferta);
+      const bioHasClient = !isMissing(bio) && sharesMeaning(bio, cliente);
+      const bioHasCTA = /(link|agend|fale|chame|direct|saiba|clique|whats|inscri|entre em contato|comece)/i.test(normalize(bio));
 
-      const scores = {
-        clareza: Math.min(95, 60 + (nicho.length > 30 ? 20 : 10) + (transformacao ? 15 : 0)),
-        diferenciacao: Math.min(95, 50 + (historia.length > 20 ? 25 : 10) + (medo ? 15 : 0)),
-        conexao: Math.min(95, 55 + (momento === 'dor' ? 20 : 10) + (medo.length > 20 ? 15 : 0)),
-        autoridade: Math.min(95, 50 + (objetivo === 'autoridade' ? 25 : 10) + (historia ? 15 : 0)),
-        prova: Math.min(95, 45 + (tentou.length > 20 ? 25 : 10)),
-        conversao: Math.min(95, 50 + (preco === 'alto' ? 15 : 5) + (objetivo === 'vendas' ? 20 : 10))
-      };
-      const media = Math.round((scores.clareza + scores.diferenciacao + scores.conexao + scores.autoridade + scores.prova + scores.conversao) / 6);
-
-      let diagnostico = '';
-      if (scores.clareza < 70) {
-        diagnostico = `Hoje, o que mais impede ${nome} de conectar e vender é a falta de clareza na comunicação do problema real da cliente. O posicionamento está vendendo uma solução, mas a persona ainda não se reconheceu na dor. O caminho é tirar a culpa dela antes de apresentar qualquer método.`;
-      } else if (scores.conexao < 70) {
-        diagnostico = `O posicionamento tem estrutura, mas falta profundidade emocional. A cliente não se sente vista no nível mais íntimo — aquela vergonha que ela não conta para ninguém. O conteúdo precisa nomear o que ela sente antes de propor qualquer solução.`;
-      } else if (scores.conversao < 65) {
-        diagnostico = `A conexão existe, mas o caminho entre o conteúdo e a oferta está quebrado. A cliente não sabe exatamente quando e como comprar. O próximo passo é criar pontes claras entre cada post e a transformação que o serviço entrega.`;
+      let comunicacaoAtual;
+      if (bioHasOffer && bioHasClient && bioHasCTA) {
+        comunicacaoAtual = `Hoje seu perfil já apresenta ${lowerFirst(ofertaCurta)}, mostra para quem esse trabalho é indicado e aponta um próximo passo. A base está clara; agora os destaques e os fixados precisam repetir essa mesma mensagem.`;
+      } else if (bioHasOffer && bioHasClient) {
+        comunicacaoAtual = `Hoje seu perfil ajuda a entender que você oferece ${lowerFirst(ofertaCurta)} para ${lowerFirst(clienteCurta)}. O que ainda pode ficar mais visível é como conhecer ou comprar essa solução.`;
+      } else if (bioHasOffer) {
+        comunicacaoAtual = `Hoje seu perfil mostra que você trabalha com ${lowerFirst(ofertaCurta)}, mas ainda não deixa tão evidente que essa solução foi pensada para ${lowerFirst(clienteCurta)}.`;
+      } else if (bioHasClient) {
+        comunicacaoAtual = `Hoje seu perfil conversa com ${lowerFirst(clienteCurta)}, mas a sua principal solução ainda pode aparecer com mais clareza logo no primeiro contato.`;
       } else {
-        diagnostico = `O posicionamento de ${nome} tem boa base, mas falta o diferencial inegociável — aquela verdade que só ela pode dizer daquele jeito. O mercado está esperando que ela ocupe um território único, e não mais um espaço genérico.`;
+        comunicacaoAtual = `Hoje seu perfil apresenta o seu trabalho, mas ainda não deixa evidente, em poucos segundos, que você oferece ${lowerFirst(ofertaCurta)} para ${lowerFirst(clienteCurta)}.`;
       }
 
-      const bios = [];
-      bios.push({
-        tag: 'Ângulo Contrarian',
-        texto: `A maioria das pessoas que fala sobre ${temaNicho.toLowerCase()} não conta uma coisa: ${tentou ? 'o que você já tentou não falhou por falta de esforço. Falhou porque foi feito para uma realidade diferente da sua.' : 'a solução não está em fazer mais. Está em fazer diferente.'} ${historia ? 'Eu descobri isso na prática. ' + cleanSentence(historia) + '.' : 'E é exatamente isso que eu ensino.'}`,
-        cta: 'Posicionamento: você é a pessoa que fala o que outros escondem.'
-      });
-      bios.push({
-        tag: 'Ângulo Reframe',
-        texto: `${medo ? 'Se você sente que ' + cleanSentence(medo).toLowerCase() + ', saiba uma coisa: não é culpa sua.' : 'Se você já tentou de tudo e nada funcionou, saiba: não é culpa sua.'} ${transformacao ? 'A transformação que eu ofereço não começa com mais uma técnica. O destino é claro: ' + cleanSentence(transformacao).toLowerCase() + '.' : 'A transformação começa quando você para de se culpar.'}`,
-        cta: 'Posicionamento: você tira a culpa antes de vender a solução.'
-      });
-      bios.push({
-        tag: 'Ângulo Método',
-        texto: `${historia ? cleanSentence(historia) + '. Por isso desenvolvi um caminho que não exige que você viva a mesma rotina insustentável.' : 'Eu não acredito em fórmulas prontas. Acredito em caminhos possíveis.'} ${transformacao ? 'O resultado? ' + cleanSentence(transformacao) + '.' : 'O resultado é uma transformação real, não apenas mais informação.'}`,
-        cta: 'Posicionamento: método nascido de experiência, não de teoria.'
-      });
-
-      const territorios = [
-        { nome: 'O que ninguém te conta sobre ' + temaNicho.toLowerCase(), tipo: 'Série de autoridade' },
-        { nome: 'Por que ' + temaTentativa.toLowerCase() + ' não funcionou', tipo: 'Série de conexão' },
-        { nome: 'Da dor à transformação: ' + temaTransformacao.toLowerCase(), tipo: 'Série de prova' },
-        { nome: 'O que ela não conta: ' + temaMedo.toLowerCase(), tipo: 'Série de conexão profunda' }
+      const pontosFortes = [
+        `Você consegue nomear a sua solução: ${lowerFirst(ofertaCurta)}. Isso dá uma base concreta para organizar o perfil.`,
+        `Você sabe quem quer atender e qual mudança essa pessoa procura: ${lowerFirst(resultadoCurto)}.`,
+        `Você já tem um elemento que gera confiança: ${lowerFirst(provaCurta)}. Isso deve ser preservado e ganhar mais espaço.`
       ];
 
-      const plano30 = [];
-      plano30.push({
-        semana: 'Semana 1 — Conexão',
-        acao: `Série "O que ela não conta: ${temaMedo.toLowerCase()}": 3 posts desconstruindo a crença errada que sua cliente carrega. Cada post nomeia uma culpa que não é dela.${respostaMomento ? ` Parta desta cena real: “${respostaMomento}”.` : ''}`,
-        formato: conteudo === 'video' ? 'Reels com áudio direto' : 'Carrossel com texto corrido',
-        cta: 'Salva se você se identificou'
-      });
-      plano30.push({
-        semana: 'Semana 2 — Autoridade',
-        acao: `Conteúdo "Como eu cheguei aqui": sua história de ${historia ? 'como você desenvolveu seu método' : 'por que você faz o que faz'} e o momento em que percebeu que o mercado estava ensinando errado.`,
-        formato: conteudo === 'video' ? 'Vídeo longo ou Reels em partes' : 'Carrossel com legenda que conta uma história',
-        cta: 'Comenta se você já passou por isso'
-      });
-      plano30.push({
-        semana: 'Semana 3 — Prova',
-        acao: `Case real: mostre o antes e depois descrito por você${transformacao ? ` — “${cleanSentence(transformacao)}”` : ''}. Não mostre só números. Mostre como ela se sente hoje.`,
-        formato: conteudo === 'video' ? 'Reels com depoimento em áudio' : 'Carrossel com prints e storytelling',
-        cta: 'Link na bio para conhecer o método'
-      });
-      const temaOferta = objetivo === 'vendas' ? 'por que agora é o momento' : 'o próximo passo';
-      plano30.push({
-        semana: 'Semana 4 — Oferta',
-        acao: objetivo === 'vendas' && respostaObjetivo
-          ? `Quebra de objeção: transforme “${respostaObjetivo}” em uma sequência de 3 conteúdos — acolha a dúvida, mostre uma prova e apresente o próximo passo.`
-          : `Série "${temaOferta.charAt(0).toUpperCase() + temaOferta.slice(1)}": desmistifique o investimento. Mostre que o custo de não resolver o problema é maior que o custo da solução.`,
-        formato: conteudo === 'video' ? 'Stories em sequência + Reels' : 'Carrossel + Stories',
-        cta: 'DM com a palavra CAMINHO'
-      });
+      const ajustes = {
+        clareza: {
+          titulo: 'Clareza da mensagem',
+          explicacao: `A pessoa que chega precisa entender rapidamente três coisas: o que você oferece, para quem e qual resultado isso ajuda a alcançar. Hoje essas respostas ainda podem aparecer de forma mais direta e repetida.`,
+          prioridade: `Seu foco nesta semana não é postar mais. É fazer alguém entender, em poucos segundos, que você oferece ${lowerFirst(ofertaCurta)} para ${lowerFirst(clienteCurta)}.`,
+          primeiroPasso: 'Use a bio sugerida abaixo e repita a mesma mensagem no primeiro post fixado.'
+        },
+        oferta: {
+          titulo: 'Oferta mais visível',
+          explicacao: `Seu conteúdo pode até gerar interesse, mas a pessoa também precisa encontrar ${lowerFirst(ofertaCurta)} sem procurar demais. Mostrar a oferta com clareza não torna o perfil menos próximo; torna a decisão mais fácil.`,
+          prioridade: `Sua prioridade nos próximos 7 dias é tornar ${lowerFirst(ofertaCurta)} fácil de encontrar e de entender.`,
+          primeiroPasso: 'Fixe um conteúdo que explique o que a cliente recebe, para quem é e como começar.'
+        },
+        conteudo: {
+          titulo: 'Conteúdo mais focado',
+          explicacao: `Você não precisa falar de muitos assuntos. O conteúdo deve ajudar ${lowerFirst(clienteCurta)} a reconhecer o problema, desejar ${lowerFirst(resultadoCurto)} e entender como o seu trabalho participa dessa mudança.`,
+          prioridade: `Seu foco nos próximos 7 dias é repetir uma mensagem central: como ${lowerFirst(ofertaCurta)} aproxima a cliente de ${lowerFirst(resultadoCurto)}.`,
+          primeiroPasso: 'Escolha três das sete ideias abaixo e publique sem abrir um novo assunto nesta semana.'
+        },
+        prova: {
+          titulo: 'Prova mais fácil de encontrar',
+          explicacao: `A confiança cresce quando a pessoa encontra evidências reais sem precisar procurar. Você já citou ${lowerFirst(provaCurta)}; agora isso precisa aparecer de forma simples nos destaques e nos fixados.`,
+          prioridade: 'Sua prioridade nos próximos 7 dias é mostrar uma prova real com contexto, não apenas dizer que o seu trabalho funciona.',
+          primeiroPasso: 'Transforme sua melhor prova em um post fixado com situação inicial, processo e resultado.'
+        },
+        venda: {
+          titulo: 'Caminho mais claro para comprar',
+          explicacao: `A pessoa pode gostar do perfil e ainda não saber o que fazer depois. Bio, conteúdo e destaques precisam indicar o mesmo próximo passo para conhecer ou comprar ${lowerFirst(ofertaCurta)}.`,
+          prioridade: 'Sua prioridade nos próximos 7 dias é deixar um único próximo passo claro em todo o perfil.',
+          primeiroPasso: 'Escolha uma chamada simples — link, WhatsApp ou direct — e use a mesma na bio e no post de oferta.'
+        }
+      };
+      const ajuste = ajustes[dificuldade];
 
-      const acoes = [
-        { prazo: 'Hoje', acao: 'Reescrever a bio usando um dos 3 ângulos sugeridos. Elimine "ajudo", "ensino" e "especialista".', impacto: 'Alta' },
-        { prazo: '7 dias', acao: `Criar série de 3 posts nomeando a dor real: ${temaMedo.toLowerCase()}. Não venda. Apenas nomeie.`, impacto: 'Alta' },
-        { prazo: '7 dias', acao: 'Reorganizar destaques: 1. Quem sou (história) 2. O método 3. Resultados 4. Depoimentos 5. Como funciona', impacto: 'Média' },
-        { prazo: '30 dias', acao: `Estabelecer uma série fixa semanal: "${territorios[0].nome}". Constância é mais importante que volume.`, impacto: 'Alta' },
-        { prazo: '30 dias', acao: 'Criar uma CTA única e repetida em todos os posts (ex: DM com CAMINHO).', impacto: 'Alta' }
+      const bioLines = isMissing(a.bio) ? [] : String(a.bio).split(/\n|\|/).map(cleanSentence).filter(Boolean);
+      const bioLineToKeep = bioLines.find(line => sharesMeaning(line, oferta) || sharesMeaning(line, cliente) || /(resultado|cliente|anos|atend|depoimento)/i.test(normalize(line)));
+      const bioManter = bioLineToKeep
+        ? `Mantenha o trecho “${limitChars(bioLineToKeep, 70)}”. Ele já traz uma informação útil sobre o seu trabalho.`
+        : 'Mantenha seu nome e o tom que combina com você. O restante da bio pode trabalhar melhor a clareza da oferta.';
+      const bioMelhorar = [
+        `Coloque “${ofertaCurta}” logo nas primeiras linhas.`,
+        `Mostre que é para ${lowerFirst(clienteCurta)}.`,
+        bioHasCTA ? 'Mantenha apenas uma chamada para ação e deixe-a bem direta.' : 'Termine com um único convite claro para dar o próximo passo.'
+      ];
+      const bioSugerida = [
+        limitChars(ofertaCurta, 38),
+        `Para ${limitChars(lowerFirst(clienteCurta), 34)}`,
+        limitChars(resultadoCurto, 42),
+        dificuldade === 'venda' ? '↓ Veja como começar' : '↓ Conheça meu trabalho'
+      ].join('\n');
+
+      const destaquesAtuais = splitItems(a.destaques);
+      const destaqueRelevante = item => /(sobre|comece|servi|mentoria|curso|produto|resultado|depo|cliente|caso|como|duvida|contato|agenda|atend|trabalho|projeto|portfolio|feedback)/i.test(normalize(item));
+      const destaquesManter = destaquesAtuais.filter(destaqueRelevante).slice(0, 4);
+      const destaquesAjustar = destaquesAtuais.filter(item => !destaqueRelevante(item)).slice(0, 3);
+      const ordemDestaques = ['Comece aqui', 'Como funciona', 'Resultados', 'Dúvidas', 'Contato'];
+      const destaquesCriar = ordemDestaques.filter(sugestao => !destaquesAtuais.some(atual => sharesMeaning(atual, sugestao))).slice(0, 3);
+
+      const fixadosAtuais = splitItems(a.fixados);
+      const fixadosTexto = fixadosAtuais.join(' ');
+      const fixadoApresentacao = /(quem sou|minha historia|sobre mim|por que comecei|posicionamento)/i.test(normalize(fixadosTexto));
+      const fixadoOferta = sharesMeaning(fixadosTexto, oferta) || /(servi|produto|oferta|como funciona|metodo|atendimento)/i.test(normalize(fixadosTexto));
+      const fixadoProva = /(resultado|depo|cliente|caso|case|antes e depois|feedback|transformacao)/i.test(normalize(fixadosTexto));
+      const coberturaFixados = [fixadoApresentacao, fixadoOferta, fixadoProva].filter(Boolean).length;
+      const statusFixados = coberturaFixados === 3 ? 'Sim' : coberturaFixados === 2 ? 'Em parte' : 'Ainda não';
+      const leituraFixados = coberturaFixados === 3
+        ? 'Os temas atuais cobrem apresentação, solução e prova. Preserve essa lógica e ajuste apenas os títulos e as chamadas.'
+        : coberturaFixados === 2
+          ? 'Os fixados ajudam, mas ainda falta uma peça para a pessoa nova entender toda a história: quem você é, o que oferece e por que confiar.'
+          : 'Os fixados atuais ainda não formam uma sequência clara para uma pessoa que acabou de chegar ao perfil.';
+      const fixadosSugeridos = [
+        `Comece aqui: quem é ${nome} e por que criou ${lowerFirst(ofertaCurta)}.`,
+        `${ofertaCurta}: para quem é, o que a cliente recebe e como funciona.`,
+        `Resultado real: mostre ${lowerFirst(provaCurta)} e explique o que tornou esse resultado possível.`
       ];
 
-      state.report = { scores, media, diagnostico, bios, territorios, plano30, acoes, nicho, temaNicho, momento, objetivo, nome, respostasAdaptativas };
+      const formatos = {
+        carrossel: ['Carrossel', 'Carrossel', 'Stories', 'Carrossel', 'Carrossel', 'Stories', 'Carrossel'],
+        reels: ['Reels', 'Reels', 'Stories', 'Reels', 'Reels', 'Stories', 'Reels'],
+        stories: ['Stories', 'Stories', 'Stories', 'Reels curto', 'Stories', 'Stories', 'Stories'],
+        misto: ['Carrossel', 'Reels', 'Stories', 'Carrossel', 'Reels', 'Stories', 'Reels']
+      }[formato];
+      const ideias = [
+        { formato: formatos[0], texto: `3 sinais de que é hora de buscar ${lowerFirst(ofertaCurta)}.` },
+        { formato: formatos[1], texto: `Mostre uma etapa de ${lowerFirst(ofertaCurta)} que a cliente normalmente não vê e explique por que ela faz diferença.` },
+        { formato: formatos[2], texto: `Conte um caso ligado a ${lowerFirst(provaCurta)}. Mostre o ponto de partida, o que foi feito e o resultado.` },
+        { formato: formatos[3], texto: `Responda: “${ofertaCurta} é para mim?” Use três situações reais em que a resposta é sim.` },
+        { formato: formatos[4], texto: `3 erros que afastam ${lowerFirst(clienteCurta)} de ${lowerFirst(resultadoCurto)}.` },
+        { formato: formatos[5], texto: `Abra uma caixinha: “Qual é sua maior dúvida sobre ${lowerFirst(ofertaCurta)}?” e responda a mais recorrente.` },
+        { formato: formatos[6], texto: `Convite direto: explique o que é ${lowerFirst(ofertaCurta)}, para quem é e qual é o próximo passo para comprar.` }
+      ];
+
+      state.report = {
+        nome, ofertaCurta, clienteCurta, resultadoCurto, comunicacaoAtual, pontosFortes,
+        ajuste, bioManter, bioMelhorar, bioSugerida, destaquesManter, destaquesAjustar,
+        destaquesCriar, ordemDestaques, statusFixados, leituraFixados, fixadosSugeridos, ideias
+      };
     }
 
     function render() {
       const app = document.getElementById('app');
       const indicator = document.getElementById('stepIndicator');
       const progress = document.getElementById('progressFill');
-      const totalSteps = baseQuestions.length + 1 + state.adaptativa.length + 1;
+      const totalSteps = baseQuestions.length + 1;
       const current = state.step;
       let dots = '';
       for (let i = 0; i < totalSteps; i++) {
@@ -353,36 +491,35 @@
         dots += `<div class="step-dot ${c}"></div>`;
       }
       indicator.innerHTML = dots;
-      progress.style.width = `${(current / (totalSteps - 1)) * 100}%`;
+      progress.style.width = `${Math.min(100, (current / (totalSteps - 1)) * 100)}%`;
 
       if (state.step < baseQuestions.length) renderQuestion(baseQuestions[state.step]);
       else if (state.step === baseQuestions.length) renderUpload();
-      else if (state.step < baseQuestions.length + 1 + state.adaptativa.length) renderAdaptive(state.adaptativa[state.step - baseQuestions.length - 1]);
       else renderReport();
     }
 
     function renderQuestion(q) {
       const app = document.getElementById('app');
       let html = '';
-      if (q.type === 'text') {
-        html = `<div class="hint">${q.hint}</div><textarea id="input-${q.id}" aria-label="${q.question}" placeholder="${q.placeholder}">${escapeHTML(state.answers[q.id] || '')}</textarea>`;
+      if (q.type === 'text' || q.type === 'input') {
+        const field = q.type === 'input'
+          ? `<input type="text" id="input-${q.id}" aria-label="${q.question}" placeholder="${q.placeholder}" value="${escapeHTML(state.answers[q.id] || '')}">`
+          : `<textarea id="input-${q.id}" aria-label="${q.question}" placeholder="${q.placeholder}">${escapeHTML(state.answers[q.id] || '')}</textarea>`;
+        html = `<div class="hint">${q.hint}</div>${field}<div class="field-error hidden" id="error-${q.id}" role="alert">Responda esta pergunta para continuar.</div>`;
       } else {
         const sel = state.answers[q.id];
-        html = `<div class="step-label">${q.label}</div><h2 class="question">${q.question}</h2><div class="options ${q.options.length <= 4 ? 'grid' : ''}">${q.options.map(o => `<div class="option ${sel === o.value ? 'selected' : ''}" onclick="selectOption('${q.id}', '${o.value}')"><div class="dot"></div><div><b>${o.label}</b><small>${o.desc}</small></div></div>`).join('')}</div>`;
+        html = `<div class="hint">${q.hint}</div><div class="options ${q.options.length <= 4 ? 'grid' : ''}">${q.options.map(o => `<button type="button" class="option ${sel === o.value ? 'selected' : ''}" aria-pressed="${sel === o.value}" onclick="selectOption('${q.id}', '${o.value}')"><span class="dot"></span><span><b>${o.label}</b><small>${o.desc}</small></span></button>`).join('')}</div><div class="field-error hidden" id="error-${q.id}" role="alert">Escolha uma opção para continuar.</div>`;
       }
-      app.innerHTML = `<div class="card">${q.type === 'text' ? `<div class="step-label">${q.label}</div><h2 class="question">${q.question}</h2>` : ''}${html}<div class="nav-buttons"><button class="btn btn-ghost" onclick="prevStep()" ${state.step === 0 ? 'style="visibility:hidden"' : ''}>Voltar</button><button class="btn btn-primary" onclick="nextStep()">Continuar</button></div></div>`;
-      if (q.type === 'text') {
-        const ta = document.getElementById(`input-${q.id}`);
-        ta.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); nextStep(); } });
+      app.innerHTML = `<div class="card"><div class="step-label">Pergunta ${state.step + 1} de ${baseQuestions.length} · ${q.label}</div><h2 class="question">${q.question}</h2>${html}<div class="nav-buttons"><button class="btn btn-ghost" onclick="prevStep()" ${state.step === 0 ? 'style="visibility:hidden"' : ''}>Voltar</button><button class="btn btn-primary" onclick="nextStep()">Continuar</button></div></div>`;
+      if (q.type === 'input') {
+        const input = document.getElementById(`input-${q.id}`);
+        input.addEventListener('keydown', event => { if (event.key === 'Enter') { event.preventDefault(); nextStep(); } });
+        input.focus();
       }
     }
 
     function renderUpload() {
-      document.getElementById('app').innerHTML = `<div class="card"><div class="step-label">Evidências visuais</div><h2 class="question">Envie prints do seu perfil</h2><div class="hint">Reúna até 3 imagens: cabeçalho/bio, feed (12–18 posts) e um conteúdo representativo.</div><div class="drop-zone ${state.images.length > 0 ? 'has-image' : ''}" onclick="document.getElementById('fileInput').click()" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('fileInput').click()}"><b>Clique para enviar imagens</b><span>${state.images.length > 0 ? state.images.length + ' imagem(ns) carregada(s)' : 'PNG, JPG ou WebP · até 3 arquivos de 8 MB'}</span><input type="file" id="fileInput" class="hidden" accept="image/png,image/jpeg,image/webp" multiple onchange="handleFiles(this)"></div><div class="preview-grid">${state.images.map(img => `<img src="${img}" alt="Prévia de um print do perfil">`).join('')}</div><p class="privacy-note"><b>Privacidade:</b> os arquivos ficam somente neste aparelho. Nesta versão, eles são guardados como referência para o antes e depois; a leitura automática por IA será ativada apenas quando houver um backend seguro.</p><div class="nav-buttons"><button class="btn btn-ghost" onclick="prevStep()">Voltar</button><button class="btn btn-primary" onclick="nextStep()" ${state.images.length === 0 ? 'disabled' : ''}>Gerar diagnóstico</button></div></div>`;
-    }
-
-    function renderAdaptive(q) {
-      document.getElementById('app').innerHTML = `<div class="card"><div class="step-label">Pergunta adaptativa</div><h2 class="question">${q.question}</h2><div class="hint">${q.hint}</div><textarea id="input-${q.id}" placeholder="${q.placeholder}">${escapeHTML(state.answers[q.id] || '')}</textarea><div class="nav-buttons"><button class="btn btn-ghost" onclick="prevStep()">Voltar</button><button class="btn btn-primary" onclick="nextStep()">Continuar</button></div></div>`;
+      document.getElementById('app').innerHTML = `<div class="card"><div class="step-label">Última etapa · Seu perfil hoje</div><h2 class="question">Envie os prints do seu perfil</h2><div class="hint">Use até 3 imagens, nesta ordem: 1) perfil e bio, 2) destaques e 3) conteúdos fixados. Elas aparecerão no final como registro do “antes”.</div><div class="drop-zone ${state.images.length > 0 ? 'has-image' : ''}" onclick="document.getElementById('fileInput').click()" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('fileInput').click()}"><b>Clique para escolher os prints</b><span>${state.images.length > 0 ? state.images.length + ' de 3 imagens carregadas' : 'PNG, JPG ou WebP · até 3 arquivos de 8 MB'}</span><input type="file" id="fileInput" class="hidden" accept="image/png,image/jpeg,image/webp" multiple onchange="handleFiles(this)"></div><div class="preview-grid">${state.images.map((img, index) => `<img src="${img}" alt="Prévia do print ${index + 1} do perfil">`).join('')}</div><div class="field-error ${state.images.length === 0 ? '' : 'hidden'}" id="error-images" role="alert"></div><p class="privacy-note"><b>Privacidade:</b> os arquivos ficam somente neste aparelho e são usados como registro visual neste diagnóstico.</p><div class="nav-buttons"><button class="btn btn-ghost" onclick="prevStep()">Voltar</button><button class="btn btn-primary" onclick="nextStep()" ${state.images.length === 0 ? 'disabled' : ''}>Ver meu diagnóstico</button></div></div>`;
     }
 
     function selectOption(qid, val) { state.answers[qid] = val; render(); }
@@ -390,26 +527,28 @@
     function nextStep() {
       if (state.step < baseQuestions.length) {
         const q = baseQuestions[state.step];
-        if (q.type === 'text') { const v = document.getElementById(`input-${q.id}`).value.trim(); if (!v) return; state.answers[q.id] = v; }
-        else if (!state.answers[q.id]) return;
-      } else if (state.step === baseQuestions.length) { if (state.images.length === 0) return; }
-      else if (state.step > baseQuestions.length && state.step < baseQuestions.length + 1 + state.adaptativa.length) {
-        const idx = state.step - baseQuestions.length - 1;
-        const q = state.adaptativa[idx];
-        const v = document.getElementById(`input-${q.id}`).value.trim(); if (!v) return; state.answers[q.id] = v;
-      }
-
-      if (state.step === baseQuestions.length - 1) {
-        const obj = state.answers.objetivo;
-        const mom = state.answers.momento;
-        state.adaptativa = [];
-        if (adaptiveQuestions[obj]) state.adaptativa.push(adaptiveQuestions[obj]);
-        if (adaptiveQuestions[mom] && mom !== obj) state.adaptativa.push(adaptiveQuestions[mom]);
-        if (state.adaptativa.length === 0) state.adaptativa.push({ id: 'adapt_geral', question: 'Se você pudesse resolver UM problema da sua cliente hoje, qual seria?', hint: 'Pense na transformação mais imediata e valiosa.', placeholder: 'Ex: Fazer ela dormir tranquila sabendo que está no caminho certo...' });
+        if (q.type === 'text' || q.type === 'input') {
+          const field = document.getElementById(`input-${q.id}`);
+          const value = field.value.trim();
+          if (!value) {
+            document.getElementById(`error-${q.id}`).classList.remove('hidden');
+            field.focus();
+            return;
+          }
+          state.answers[q.id] = value;
+        } else if (!state.answers[q.id]) {
+          document.getElementById(`error-${q.id}`).classList.remove('hidden');
+          return;
+        }
+      } else if (state.step === baseQuestions.length && state.images.length === 0) {
+        const error = document.getElementById('error-images');
+        error.textContent = 'Envie ao menos um print para continuar.';
+        error.classList.remove('hidden');
+        return;
       }
 
       state.step++;
-      if (state.step >= baseQuestions.length + 1 + state.adaptativa.length) gerarRelatorio();
+      if (state.step > baseQuestions.length) gerarRelatorio();
       render();
     }
 
@@ -418,110 +557,95 @@
     function handleFiles(input) {
       const allowedTypes = new Set(['image/png', 'image/jpeg', 'image/webp']);
       const maxBytes = 8 * 1024 * 1024;
-      const selected = Array.from(input.files).slice(0, 3);
+      const requested = Array.from(input.files);
+      const selected = requested.slice(0, 3);
       const files = selected.filter(file => allowedTypes.has(file.type) && file.size <= maxBytes);
-      if (files.length !== selected.length) {
-        alert('Use somente imagens PNG, JPG ou WebP com até 8 MB cada.');
+      if (requested.length > 3 || files.length !== selected.length) {
+        alert('Envie no máximo 3 imagens PNG, JPG ou WebP com até 8 MB cada.');
       }
       state.images = [];
       if (files.length === 0) { renderUpload(); return; }
-      let loaded = 0;
-      files.forEach(file => {
+      Promise.all(files.map(file => new Promise(resolve => {
         const reader = new FileReader();
-        reader.onload = e => { state.images.push(e.target.result); loaded++; if (loaded === files.length) renderUpload(); };
+        reader.onload = event => resolve(event.target.result);
         reader.readAsDataURL(file);
-      });
+      }))).then(images => { state.images = images; renderUpload(); });
     }
 
     function renderReport() {
       const app = document.getElementById('app');
       const r = state.report;
       const h = escapeHTML;
+      const captions = ['Perfil e bio', 'Destaques', 'Conteúdos fixados'];
       app.innerHTML = `
-        <div class="result-header"><div class="tag">Pré-diagnóstico estratégico</div><h2>Posicionamento de <span class="name">${h(r.nome)}</span></h2></div>
+        <div class="result-header"><div class="tag">Sua leitura personalizada</div><h2>Diagnóstico de <span class="name">${h(r.nome)}</span></h2><p class="plain-intro">Aqui está o essencial para entender onde você está e o que fazer primeiro.</p></div>
         <div class="card">
           <div class="block">
-            <h3><span class="num">1</span> Diagnóstico central</h3>
-            <div class="frase-destaque">${h(r.diagnostico)}</div>
+            <h3><span class="num">1</span> O que seu perfil comunica hoje</h3>
+            <div class="frase-destaque">${h(r.comunicacaoAtual)}</div>
           </div>
           <div class="block">
-            <h3><span class="num">2</span> Indicadores iniciais</h3>
-            <div class="score-grid">
-              <div class="score-item"><div class="label">Clareza</div><div class="value ${r.scores.clareza < 70 ? 'low' : ''}">${r.scores.clareza}</div></div>
-              <div class="score-item"><div class="label">Diferenciação</div><div class="value ${r.scores.diferenciacao < 70 ? 'low' : ''}">${r.scores.diferenciacao}</div></div>
-              <div class="score-item"><div class="label">Conexão</div><div class="value ${r.scores.conexao < 70 ? 'low' : ''}">${r.scores.conexao}</div></div>
-              <div class="score-item"><div class="label">Autoridade</div><div class="value ${r.scores.autoridade < 70 ? 'low' : ''}">${r.scores.autoridade}</div></div>
-              <div class="score-item"><div class="label">Prova</div><div class="value ${r.scores.prova < 70 ? 'low' : ''}">${r.scores.prova}</div></div>
-              <div class="score-item"><div class="label">Conversão</div><div class="value ${r.scores.conversao < 65 ? 'low' : ''}">${r.scores.conversao}</div></div>
-            </div>
-            <div style="text-align:center; margin-top:12px; font-size:14px; color:var(--mel-dark-soft)">Média geral: <b style="color:var(--mel-dark); font-size:18px">${r.media}/100</b></div>
-            <p class="privacy-note" style="text-align:center">Esses indicadores refletem a completude e a coerência das respostas. Não são métricas oficiais de desempenho do Instagram.</p>
+            <h3><span class="num">2</span> O que você vende</h3>
+            <div class="simple-card"><p>Você oferece <b>${h(lowerFirst(r.ofertaCurta))}</b>.</p></div>
           </div>
           <div class="block">
-            <h3><span class="num">3</span> Bios estratégicas — fora dos clichês</h3>
-            ${r.bios.map((bio, i) => `
-              <div class="bio-card">
-                <div class="bio-tag">${h(bio.tag)}</div>
-                <div class="bio-text">${h(bio.texto)}</div>
-                <div class="bio-cta">${h(bio.cta)}</div>
-                <button class="copy-btn" onclick="copyBio(this, ${i})">Copiar bio</button>
-              </div>
-            `).join('')}
-            <div class="warn-box"><b>Dica da Mel:</b> Evite "ajudo", "ensino", "especialista em" e "transformo vidas". Essas palavras invisibilizam você no feed. Use ângulos que só você pode sustentar.</div>
+            <h3><span class="num">3</span> Para quem você vende</h3>
+            <div class="simple-card"><p>Sua cliente com maior chance de comprar é <b>${h(lowerFirst(r.clienteCurta))}</b>.</p></div>
           </div>
           <div class="block">
-            <h3><span class="num">4</span> Territórios de conteúdo exclusivos</h3>
-            <p style="font-size:14px; color:var(--mel-dark-soft); margin-bottom:12px">Séries que só você pode sustentar:</p>
-            ${r.territorios.map(t => `<span class="tag-chip">${h(t.nome)}</span>`).join('')}
-            <div style="margin-top:12px; font-size:13px; color:var(--mel-dark-soft)">${r.territorios.map(t => `<div style="margin-bottom:4px">• <b>${h(t.nome)}</b> — ${h(t.tipo)}</div>`).join('')}</div>
+            <h3><span class="num">4</span> O que essa cliente está buscando</h3>
+            <div class="simple-card"><p>Ela procura <b>${h(lowerFirst(r.resultadoCurto))}</b>.</p></div>
           </div>
           <div class="block">
-            <h3><span class="num">5</span> Plano editorial — 30 dias</h3>
-            ${r.plano30.map(p => `
-              <div class="acao-box">
-                <div class="acao-title">${h(p.semana)}</div>
-                <div class="acao-desc"><b>Ação:</b> ${h(p.acao)}<br><b>Formato:</b> ${h(p.formato)}<br><b>CTA:</b> ${h(p.cta)}</div>
-              </div>
-            `).join('')}
+            <h3><span class="num">5</span> O que já está funcionando</h3>
+            <ul class="positive-list">${r.pontosFortes.map(item => `<li>${h(item)}</li>`).join('')}</ul>
           </div>
           <div class="block">
-            <h3><span class="num">6</span> Plano de ação priorizado</h3>
-            ${r.acoes.map(a => `
-              <div style="display:flex; align-items:flex-start; gap:12px; margin-bottom:12px; padding:12px; background:var(--mel-cream); border-radius:10px; border:1px solid var(--mel-line)">
-                <div style="min-width:70px; font-size:12px; font-weight:700; color:var(--mel-vinho)">${h(a.prazo)}</div>
-                <div style="flex:1">
-                  <div style="font-size:14px; font-weight:600; color:var(--mel-dark)">${h(a.acao)}</div>
-                  <div style="font-size:12px; color:var(--mel-dark-soft)">Impacto: ${h(a.impacto)}</div>
-                </div>
-              </div>
-            `).join('')}
+            <h3><span class="num">6</span> Seu principal ponto de ajuste</h3>
+            <div class="simple-card"><span class="simple-label">${h(r.ajuste.titulo)}</span><p>${h(r.ajuste.explicacao)}</p></div>
           </div>
           <div class="block">
-            <h3><span class="num">7</span> Evidências e próximos passos</h3>
-            <div class="insight-badge obs">📸 ${state.images.length} print(s) anexado(s)</div>
-            <ul class="lista-detalhada">
-              <li><b>Uso dos prints:</b> os arquivos ficam no navegador como registro do perfil atual. Eles não foram interpretados automaticamente nesta versão.</li>
-              <li><b>Próxima evolução:</b> quando o backend seguro de IA estiver conectado, a leitura poderá avaliar bio, destaques, feed e coerência visual com evidências específicas.</li>
-            </ul>
-            <div class="insight-badge dec" style="margin-top:12px">💬 Declarado no questionário</div>
-            <ul class="lista-detalhada">
-              <li><b>Persona:</b> Mulher em fase de ${r.momento === 'dor' ? 'dor aguda' : r.momento === 'transicao' ? 'transição' : 'crescimento'}, buscando uma solução ligada a ${h(r.temaNicho.toLowerCase())}.</li>
-              <li><b>Objetivo:</b> ${r.objetivo === 'autoridade' ? 'Construir autoridade' : r.objetivo === 'vendas' ? 'Aumentar vendas' : r.objetivo === 'conexao' ? 'Fortalecer conexão' : 'Ganhar visibilidade'}.</li>
-              ${r.respostasAdaptativas.map(item => `<li><b>${h(item.pergunta)}</b><br>${h(item.resposta)}</li>`).join('')}
-            </ul>
-            <div class="insight-badge hip" style="margin-top:12px">💡 Recomendação inicial</div>
-            <ul class="lista-detalhada">
-              <li><b>Destaques:</b> organize em sequência lógica: Quem sou → O método → Resultados → Depoimentos → Como funciona.</li>
-              <li><b>Conteúdo:</b> use como ponto de partida 40% conexão, 30% autoridade, 20% prova e 10% oferta; ajuste depois com dados reais de alcance, salvamentos e conversão.</li>
-            </ul>
+            <h3><span class="num">7</span> Bio estratégica</h3>
+            <div class="simple-card"><span class="simple-label">O que manter</span><p>${h(r.bioManter)}</p></div>
+            <div class="simple-card"><span class="simple-label">O que melhorar</span><ul class="lista-detalhada">${r.bioMelhorar.map(item => `<li>${h(item)}</li>`).join('')}</ul></div>
+            <div class="bio-card"><div class="bio-tag">Sugestão pronta</div><div class="bio-text" style="white-space:pre-line">${h(r.bioSugerida)}</div><button class="copy-btn" onclick="copyBio(this)">Copiar bio</button></div>
           </div>
-          <div style="text-align:center; margin-top:20px"><button class="btn btn-primary" onclick="location.reload()">Novo diagnóstico</button></div>
+          <div class="block">
+            <h3><span class="num">8</span> Destaques</h3>
+            <div class="simple-card"><span class="simple-label">Mantenha</span><p>${r.destaquesManter.length ? h(joinNatural(r.destaquesManter)) : 'Nenhum destaque atual foi identificado como essencial para a decisão de compra.'}</p></div>
+            <div class="simple-card"><span class="simple-label">Ajuste</span><p>${r.destaquesAjustar.length ? `Renomeie ou retire: ${h(joinNatural(r.destaquesAjustar))}. Esses nomes não ajudam a entender rapidamente o seu trabalho.` : 'Use títulos curtos e diretos para que cada destaque tenha uma função clara.'}</p></div>
+            <div class="simple-card"><span class="simple-label">Crie</span><p>${h(joinNatural(r.destaquesCriar)) || 'Sua base de destaques já cobre as informações essenciais.'}</p></div>
+            <div class="simple-card"><span class="simple-label">Ordem sugerida</span><p>${h(r.ordemDestaques.join(' → '))}</p></div>
+          </div>
+          <div class="block">
+            <h3><span class="num">9</span> Conteúdos fixados</h3>
+            <span class="status-pill">${h(r.statusFixados)}</span>
+            <p class="plain-intro">${h(r.leituraFixados)}</p>
+            <ul class="lista-detalhada">${r.fixadosSugeridos.map((item, index) => `<li><b>Fixado ${index + 1}:</b> ${h(item)}</li>`).join('')}</ul>
+          </div>
+          <div class="block">
+            <h3><span class="num">10</span> 7 conteúdos para testar</h3>
+            <ul class="content-ideas">${r.ideias.map(ideia => `<li><span class="content-format">${h(ideia.formato)}:</span> ${h(ideia.texto)}</li>`).join('')}</ul>
+          </div>
+          <div class="block">
+            <h3><span class="num">11</span> Sua prioridade para os próximos 7 dias</h3>
+            <div class="priority-card"><div class="priority-title">Comece por aqui</div><p>${h(r.ajuste.prioridade)}</p></div>
+            <div class="simple-card"><span class="simple-label">Primeiro passo</span><p>${h(r.ajuste.primeiroPasso)}</p></div>
+          </div>
         </div>
+        <div class="profile-record">
+          <h3>Seu perfil hoje</h3>
+          <p>Este é o registro visual do perfil analisado antes dos ajustes.</p>
+          ${state.images[0] ? `<img class="profile-main" src="${state.images[0]}" alt="${captions[0]}">` : ''}
+          <div class="profile-thumbs">${state.images.slice(1).map((img, index) => `<figure><img src="${img}" alt="${captions[index + 1] || `Print ${index + 2}`}"><figcaption class="profile-caption">${captions[index + 1] || `Print ${index + 2}`}</figcaption></figure>`).join('')}</div>
+          <p class="privacy-note">Os prints ficam neste aparelho como registro visual. As orientações acima usam as respostas e os textos informados no questionário.</p>
+        </div>
+        <div class="report-actions"><button class="btn btn-primary" onclick="window.print()">Salvar diagnóstico</button><button class="btn btn-ghost" onclick="location.reload()">Fazer novo diagnóstico</button></div>
       `;
     }
 
-    function copyBio(btn, index) {
-      const text = state.report?.bios?.[index]?.texto || '';
+    function copyBio(btn) {
+      const text = state.report?.bioSugerida || '';
       navigator.clipboard.writeText(text).then(() => { btn.textContent = 'Copiado!'; setTimeout(() => btn.textContent = 'Copiar bio', 2000); });
     }
 
