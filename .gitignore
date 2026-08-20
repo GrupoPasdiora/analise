@@ -1,0 +1,12 @@
+/node_modules/
+/.next/
+/.vinext/
+/dist/
+/.wrangler/
+*.tsbuildinfo
+/public/diagnostico.html
+/public/assets/mel.jpg
+.env*
+!.env.example
+.DS_Store
+npm-debug.log*

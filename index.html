@@ -89,6 +89,9 @@
     textarea:focus, input[type="text"]:focus { outline: none; border-color: var(--mel-vinho); }
     textarea { min-height: 90px; }
     .field-error { color: #A33D2B; font-size: 13px; font-weight: 600; margin-top: 8px; }
+    .analysis-status { display: flex; align-items: center; gap: 10px; margin-top: 14px; padding: 12px 14px; border-radius: 12px; background: #F5E8EB; color: var(--mel-vinho); font-size: 13px; font-weight: 700; }
+    .spinner { width: 18px; height: 18px; flex: 0 0 auto; border: 2px solid rgba(107,26,42,.22); border-top-color: var(--mel-vinho); border-radius: 50%; animation: spin .8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
     label.field-label { display: block; font-weight: 600; font-size: 14px; margin: 16px 0 6px; color: var(--mel-dark); }
     .drop-zone {
       border: 2px dashed var(--mel-vinho-pale); border-radius: 16px; padding: 32px 24px;
@@ -208,7 +211,7 @@
   <div id="app" aria-live="polite"></div>
 
   <script>
-    const state = { step: 0, answers: {}, images: [], report: null };
+    const state = { step: 0, answers: {}, images: [], report: null, isPreparing: false, isAnalyzing: false, analysisError: '' };
 
     function escapeHTML(value) {
       return String(value ?? '').replace(/[&<>'"]/g, char => ({
@@ -294,46 +297,9 @@
       return String(value || '').replace(/\s+/g, ' ').trim().replace(/[.!?]+$/, '');
     }
 
-    function compactPhrase(value, fallback, limit = 10) {
-      const words = cleanSentence(value).split(/\s+/).filter(Boolean);
-      if (!words.length) return fallback;
-      const phrase = words.slice(0, limit).join(' ') + (words.length > limit ? '…' : '');
-      return phrase.charAt(0).toUpperCase() + phrase.slice(1);
-    }
-
-    function limitChars(value, limit) {
-      const text = cleanSentence(value);
-      if (text.length <= limit) return text;
-      const shortened = text.slice(0, limit - 1).replace(/\s+\S*$/, '').trim();
-      return `${shortened || text.slice(0, limit - 1)}…`;
-    }
-
     function lowerFirst(value) {
       const text = cleanSentence(value);
       return text ? text.charAt(0).toLowerCase() + text.slice(1) : text;
-    }
-
-    function normalize(value) {
-      return cleanSentence(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-    }
-
-    function isMissing(value) {
-      return /^(não|nao)\s+(tenho|possuo)|^(nenhum|nenhuma)|^sem\s+/i.test(cleanSentence(value));
-    }
-
-    function meaningfulWords(value) {
-      const ignored = new Set(['para', 'como', 'mais', 'uma', 'com', 'que', 'das', 'dos', 'por', 'seu', 'sua', 'meu', 'minha', 'hoje', 'elas', 'eles', 'pessoa', 'mulher', 'mulheres']);
-      return normalize(value).split(/[^a-z0-9]+/).filter(word => word.length >= 4 && !ignored.has(word));
-    }
-
-    function sharesMeaning(text, reference) {
-      const source = normalize(text);
-      return meaningfulWords(reference).some(word => source.includes(word));
-    }
-
-    function splitItems(value) {
-      if (isMissing(value)) return [];
-      return String(value || '').split(/\n|,|;/).map(cleanSentence).filter(Boolean);
     }
 
     function joinNatural(items) {
@@ -342,141 +308,51 @@
       return `${items.slice(0, -1).join(', ')} e ${items[items.length - 1]}`;
     }
 
-    function gerarRelatorio() {
-      const a = state.answers;
-      const nome = a.nome || 'Você';
-      const oferta = cleanSentence(a.oferta).replace(/^(eu\s+)?(vendo|ofereço|ofereco|faço|faco|trabalho com)\s+/i, '');
-      const cliente = cleanSentence(a.cliente).replace(/^(eu\s+)?(atendo|meu público é|minhas clientes são)\s+/i, '');
-      const resultado = cleanSentence(a.resultado).replace(/^(ela|ele|elas|eles)\s+(quer|querem|busca|buscam)\s+/i, '');
-      const bio = cleanSentence(a.bio);
-      const prova = cleanSentence(a.prova);
-      const dificuldade = a.dificuldade || 'clareza';
-      const formato = a.formato || 'misto';
-
-      const ofertaCurta = compactPhrase(oferta, 'seu serviço principal', 9);
-      const clienteCurta = compactPhrase(cliente, 'sua cliente ideal', 10);
-      const resultadoCurto = compactPhrase(resultado, 'a mudança que ela procura', 10);
-      const provaCurta = compactPhrase(prova, 'um resultado real do seu trabalho', 12);
-      const bioHasOffer = !isMissing(bio) && sharesMeaning(bio, oferta);
-      const bioHasClient = !isMissing(bio) && sharesMeaning(bio, cliente);
-      const bioHasCTA = /(link|agend|fale|chame|direct|saiba|clique|whats|inscri|entre em contato|comece)/i.test(normalize(bio));
-
-      let comunicacaoAtual;
-      if (bioHasOffer && bioHasClient && bioHasCTA) {
-        comunicacaoAtual = `Hoje seu perfil já apresenta ${lowerFirst(ofertaCurta)}, mostra para quem esse trabalho é indicado e aponta um próximo passo. A base está clara; agora os destaques e os fixados precisam repetir essa mesma mensagem.`;
-      } else if (bioHasOffer && bioHasClient) {
-        comunicacaoAtual = `Hoje seu perfil ajuda a entender que você oferece ${lowerFirst(ofertaCurta)} para ${lowerFirst(clienteCurta)}. O que ainda pode ficar mais visível é como conhecer ou comprar essa solução.`;
-      } else if (bioHasOffer) {
-        comunicacaoAtual = `Hoje seu perfil mostra que você trabalha com ${lowerFirst(ofertaCurta)}, mas ainda não deixa tão evidente que essa solução foi pensada para ${lowerFirst(clienteCurta)}.`;
-      } else if (bioHasClient) {
-        comunicacaoAtual = `Hoje seu perfil conversa com ${lowerFirst(clienteCurta)}, mas a sua principal solução ainda pode aparecer com mais clareza logo no primeiro contato.`;
-      } else {
-        comunicacaoAtual = `Hoje seu perfil apresenta o seu trabalho, mas ainda não deixa evidente, em poucos segundos, que você oferece ${lowerFirst(ofertaCurta)} para ${lowerFirst(clienteCurta)}.`;
-      }
-
-      const pontosFortes = [
-        `Você consegue nomear a sua solução: ${lowerFirst(ofertaCurta)}. Isso dá uma base concreta para organizar o perfil.`,
-        `Você sabe quem quer atender e qual mudança essa pessoa procura: ${lowerFirst(resultadoCurto)}.`,
-        `Você já tem um elemento que gera confiança: ${lowerFirst(provaCurta)}. Isso deve ser preservado e ganhar mais espaço.`
-      ];
-
-      const ajustes = {
-        clareza: {
-          titulo: 'Clareza da mensagem',
-          explicacao: `A pessoa que chega precisa entender rapidamente três coisas: o que você oferece, para quem e qual resultado isso ajuda a alcançar. Hoje essas respostas ainda podem aparecer de forma mais direta e repetida.`,
-          prioridade: `Seu foco nesta semana não é postar mais. É fazer alguém entender, em poucos segundos, que você oferece ${lowerFirst(ofertaCurta)} para ${lowerFirst(clienteCurta)}.`,
-          primeiroPasso: 'Use a bio sugerida abaixo e repita a mesma mensagem no primeiro post fixado.'
-        },
-        oferta: {
-          titulo: 'Oferta mais visível',
-          explicacao: `Seu conteúdo pode até gerar interesse, mas a pessoa também precisa encontrar ${lowerFirst(ofertaCurta)} sem procurar demais. Mostrar a oferta com clareza não torna o perfil menos próximo; torna a decisão mais fácil.`,
-          prioridade: `Sua prioridade nos próximos 7 dias é tornar ${lowerFirst(ofertaCurta)} fácil de encontrar e de entender.`,
-          primeiroPasso: 'Fixe um conteúdo que explique o que a cliente recebe, para quem é e como começar.'
-        },
-        conteudo: {
-          titulo: 'Conteúdo mais focado',
-          explicacao: `Você não precisa falar de muitos assuntos. O conteúdo deve ajudar ${lowerFirst(clienteCurta)} a reconhecer o problema, desejar ${lowerFirst(resultadoCurto)} e entender como o seu trabalho participa dessa mudança.`,
-          prioridade: `Seu foco nos próximos 7 dias é repetir uma mensagem central: como ${lowerFirst(ofertaCurta)} aproxima a cliente de ${lowerFirst(resultadoCurto)}.`,
-          primeiroPasso: 'Escolha três das sete ideias abaixo e publique sem abrir um novo assunto nesta semana.'
-        },
-        prova: {
-          titulo: 'Prova mais fácil de encontrar',
-          explicacao: `A confiança cresce quando a pessoa encontra evidências reais sem precisar procurar. Você já citou ${lowerFirst(provaCurta)}; agora isso precisa aparecer de forma simples nos destaques e nos fixados.`,
-          prioridade: 'Sua prioridade nos próximos 7 dias é mostrar uma prova real com contexto, não apenas dizer que o seu trabalho funciona.',
-          primeiroPasso: 'Transforme sua melhor prova em um post fixado com situação inicial, processo e resultado.'
-        },
-        venda: {
-          titulo: 'Caminho mais claro para comprar',
-          explicacao: `A pessoa pode gostar do perfil e ainda não saber o que fazer depois. Bio, conteúdo e destaques precisam indicar o mesmo próximo passo para conhecer ou comprar ${lowerFirst(ofertaCurta)}.`,
-          prioridade: 'Sua prioridade nos próximos 7 dias é deixar um único próximo passo claro em todo o perfil.',
-          primeiroPasso: 'Escolha uma chamada simples — link, WhatsApp ou direct — e use a mesma na bio e no post de oferta.'
+    function getClientId() {
+      const storageKey = 'mel-diagnostico-device';
+      try {
+        let id = localStorage.getItem(storageKey);
+        if (!id) {
+          id = crypto.randomUUID();
+          localStorage.setItem(storageKey, id);
         }
-      };
-      const ajuste = ajustes[dificuldade];
+        return id;
+      } catch {
+        return crypto.randomUUID();
+      }
+    }
 
-      const bioLines = isMissing(a.bio) ? [] : String(a.bio).split(/\n|\|/).map(cleanSentence).filter(Boolean);
-      const bioLineToKeep = bioLines.find(line => sharesMeaning(line, oferta) || sharesMeaning(line, cliente) || /(resultado|cliente|anos|atend|depoimento)/i.test(normalize(line)));
-      const bioManter = bioLineToKeep
-        ? `Mantenha o trecho “${limitChars(bioLineToKeep, 70)}”. Ele já traz uma informação útil sobre o seu trabalho.`
-        : 'Mantenha seu nome e o tom que combina com você. O restante da bio pode trabalhar melhor a clareza da oferta.';
-      const bioMelhorar = [
-        `Coloque “${ofertaCurta}” logo nas primeiras linhas.`,
-        `Mostre que é para ${lowerFirst(clienteCurta)}.`,
-        bioHasCTA ? 'Mantenha apenas uma chamada para ação e deixe-a bem direta.' : 'Termine com um único convite claro para dar o próximo passo.'
-      ];
-      const bioSugerida = [
-        limitChars(ofertaCurta, 38),
-        `Para ${limitChars(lowerFirst(clienteCurta), 34)}`,
-        limitChars(resultadoCurto, 42),
-        dificuldade === 'venda' ? '↓ Veja como começar' : '↓ Conheça meu trabalho'
-      ].join('\n');
+    async function gerarRelatorio() {
+      state.isAnalyzing = true;
+      state.analysisError = '';
+      renderUpload();
 
-      const destaquesAtuais = splitItems(a.destaques);
-      const destaqueRelevante = item => /(sobre|comece|servi|mentoria|curso|produto|resultado|depo|cliente|caso|como|duvida|contato|agenda|atend|trabalho|projeto|portfolio|feedback)/i.test(normalize(item));
-      const destaquesManter = destaquesAtuais.filter(destaqueRelevante).slice(0, 4);
-      const destaquesAjustar = destaquesAtuais.filter(item => !destaqueRelevante(item)).slice(0, 3);
-      const ordemDestaques = ['Comece aqui', 'Como funciona', 'Resultados', 'Dúvidas', 'Contato'];
-      const destaquesCriar = ordemDestaques.filter(sugestao => !destaquesAtuais.some(atual => sharesMeaning(atual, sugestao))).slice(0, 3);
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 75000);
 
-      const fixadosAtuais = splitItems(a.fixados);
-      const fixadosTexto = fixadosAtuais.join(' ');
-      const fixadoApresentacao = /(quem sou|minha historia|sobre mim|por que comecei|posicionamento)/i.test(normalize(fixadosTexto));
-      const fixadoOferta = sharesMeaning(fixadosTexto, oferta) || /(servi|produto|oferta|como funciona|metodo|atendimento)/i.test(normalize(fixadosTexto));
-      const fixadoProva = /(resultado|depo|cliente|caso|case|antes e depois|feedback|transformacao)/i.test(normalize(fixadosTexto));
-      const coberturaFixados = [fixadoApresentacao, fixadoOferta, fixadoProva].filter(Boolean).length;
-      const statusFixados = coberturaFixados === 3 ? 'Sim' : coberturaFixados === 2 ? 'Em parte' : 'Ainda não';
-      const leituraFixados = coberturaFixados === 3
-        ? 'Os temas atuais cobrem apresentação, solução e prova. Preserve essa lógica e ajuste apenas os títulos e as chamadas.'
-        : coberturaFixados === 2
-          ? 'Os fixados ajudam, mas ainda falta uma peça para a pessoa nova entender toda a história: quem você é, o que oferece e por que confiar.'
-          : 'Os fixados atuais ainda não formam uma sequência clara para uma pessoa que acabou de chegar ao perfil.';
-      const fixadosSugeridos = [
-        `Comece aqui: quem é ${nome} e por que criou ${lowerFirst(ofertaCurta)}.`,
-        `${ofertaCurta}: para quem é, o que a cliente recebe e como funciona.`,
-        `Resultado real: mostre ${lowerFirst(provaCurta)} e explique o que tornou esse resultado possível.`
-      ];
-
-      const formatos = {
-        carrossel: ['Carrossel', 'Carrossel', 'Stories', 'Carrossel', 'Carrossel', 'Stories', 'Carrossel'],
-        reels: ['Reels', 'Reels', 'Stories', 'Reels', 'Reels', 'Stories', 'Reels'],
-        stories: ['Stories', 'Stories', 'Stories', 'Reels curto', 'Stories', 'Stories', 'Stories'],
-        misto: ['Carrossel', 'Reels', 'Stories', 'Carrossel', 'Reels', 'Stories', 'Reels']
-      }[formato];
-      const ideias = [
-        { formato: formatos[0], texto: `3 sinais de que é hora de buscar ${lowerFirst(ofertaCurta)}.` },
-        { formato: formatos[1], texto: `Mostre uma etapa de ${lowerFirst(ofertaCurta)} que a cliente normalmente não vê e explique por que ela faz diferença.` },
-        { formato: formatos[2], texto: `Conte um caso ligado a ${lowerFirst(provaCurta)}. Mostre o ponto de partida, o que foi feito e o resultado.` },
-        { formato: formatos[3], texto: `Responda: “${ofertaCurta} é para mim?” Use três situações reais em que a resposta é sim.` },
-        { formato: formatos[4], texto: `3 erros que afastam ${lowerFirst(clienteCurta)} de ${lowerFirst(resultadoCurto)}.` },
-        { formato: formatos[5], texto: `Abra uma caixinha: “Qual é sua maior dúvida sobre ${lowerFirst(ofertaCurta)}?” e responda a mais recorrente.` },
-        { formato: formatos[6], texto: `Convite direto: explique o que é ${lowerFirst(ofertaCurta)}, para quem é e qual é o próximo passo para comprar.` }
-      ];
-
-      state.report = {
-        nome, ofertaCurta, clienteCurta, resultadoCurto, comunicacaoAtual, pontosFortes,
-        ajuste, bioManter, bioMelhorar, bioSugerida, destaquesManter, destaquesAjustar,
-        destaquesCriar, ordemDestaques, statusFixados, leituraFixados, fixadosSugeridos, ideias
-      };
+      try {
+        const response = await fetch('/api/analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ answers: state.answers, images: state.images, clientId: getClientId() }),
+          signal: controller.signal
+        });
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok || !payload.report) {
+          throw new Error(payload.message || 'Não foi possível concluir a análise agora. Tente novamente em alguns minutos.');
+        }
+        state.report = payload.report;
+        state.step++;
+        render();
+      } catch (error) {
+        state.analysisError = error.name === 'AbortError'
+          ? 'A análise demorou mais que o esperado. Tente novamente mantendo os mesmos prints.'
+          : error.message;
+      } finally {
+        clearTimeout(timeout);
+        state.isAnalyzing = false;
+        if (state.step === baseQuestions.length) renderUpload();
+      }
     }
 
     function render() {
@@ -519,7 +395,13 @@
     }
 
     function renderUpload() {
-      document.getElementById('app').innerHTML = `<div class="card"><div class="step-label">Última etapa · Seu perfil hoje</div><h2 class="question">Envie os prints do seu perfil</h2><div class="hint">Use até 3 imagens, nesta ordem: 1) perfil e bio, 2) destaques e 3) conteúdos fixados. Elas aparecerão no final como registro do “antes”.</div><div class="drop-zone ${state.images.length > 0 ? 'has-image' : ''}" onclick="document.getElementById('fileInput').click()" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('fileInput').click()}"><b>Clique para escolher os prints</b><span>${state.images.length > 0 ? state.images.length + ' de 3 imagens carregadas' : 'PNG, JPG ou WebP · até 3 arquivos de 8 MB'}</span><input type="file" id="fileInput" class="hidden" accept="image/png,image/jpeg,image/webp" multiple onchange="handleFiles(this)"></div><div class="preview-grid">${state.images.map((img, index) => `<img src="${img}" alt="Prévia do print ${index + 1} do perfil">`).join('')}</div><div class="field-error ${state.images.length === 0 ? '' : 'hidden'}" id="error-images" role="alert"></div><p class="privacy-note"><b>Privacidade:</b> os arquivos ficam somente neste aparelho e são usados como registro visual neste diagnóstico.</p><div class="nav-buttons"><button class="btn btn-ghost" onclick="prevStep()">Voltar</button><button class="btn btn-primary" onclick="nextStep()" ${state.images.length === 0 ? 'disabled' : ''}>Ver meu diagnóstico</button></div></div>`;
+      const busy = state.isPreparing || state.isAnalyzing;
+      const status = state.isPreparing
+        ? '<div class="analysis-status"><span class="spinner"></span>Preparando os prints para a leitura…</div>'
+        : state.isAnalyzing
+          ? '<div class="analysis-status"><span class="spinner"></span>A IA está lendo seu perfil e preparando uma orientação simples…</div>'
+          : '';
+      document.getElementById('app').innerHTML = `<div class="card"><div class="step-label">Última etapa · Seu perfil hoje</div><h2 class="question">Envie os prints do seu perfil</h2><div class="hint">Use até 3 imagens, nesta ordem: 1) perfil e bio, 2) destaques e 3) conteúdos fixados. Elas serão lidas pela IA e aparecerão no final como registro do “antes”.</div><div class="drop-zone ${state.images.length > 0 ? 'has-image' : ''}" onclick="if(!${busy})document.getElementById('fileInput').click()" role="button" tabindex="0" onkeydown="if(!${busy}&&(event.key==='Enter'||event.key===' ')){event.preventDefault();document.getElementById('fileInput').click()}"><b>Clique para escolher os prints</b><span>${state.images.length > 0 ? state.images.length + ' de 3 imagens carregadas' : 'PNG, JPG ou WebP · até 3 arquivos de 8 MB'}</span><input type="file" id="fileInput" class="hidden" accept="image/png,image/jpeg,image/webp" multiple onchange="handleFiles(this)" ${busy ? 'disabled' : ''}></div><div class="preview-grid">${state.images.map((img, index) => `<img src="${img}" alt="Prévia do print ${index + 1} do perfil">`).join('')}</div>${status}<div class="field-error ${state.analysisError ? '' : 'hidden'}" id="error-images" role="alert">${escapeHTML(state.analysisError)}</div><p class="privacy-note"><b>Privacidade:</b> os prints são enviados à IA somente quando você pede o diagnóstico. O sistema não cria uma galeria nem salva as imagens.</p><div class="nav-buttons"><button class="btn btn-ghost" onclick="prevStep()" ${busy ? 'disabled' : ''}>Voltar</button><button class="btn btn-primary" onclick="nextStep()" ${state.images.length === 0 || busy ? 'disabled' : ''}>${state.isAnalyzing ? 'Analisando…' : 'Analisar meu perfil'}</button></div></div>`;
     }
 
     function selectOption(qid, val) { state.answers[qid] = val; render(); }
@@ -540,21 +422,55 @@
           document.getElementById(`error-${q.id}`).classList.remove('hidden');
           return;
         }
-      } else if (state.step === baseQuestions.length && state.images.length === 0) {
-        const error = document.getElementById('error-images');
-        error.textContent = 'Envie ao menos um print para continuar.';
-        error.classList.remove('hidden');
+      } else if (state.step === baseQuestions.length) {
+        if (state.images.length === 0) {
+          const error = document.getElementById('error-images');
+          error.textContent = 'Envie ao menos um print para continuar.';
+          error.classList.remove('hidden');
+          return;
+        }
+        if (!state.isAnalyzing && !state.isPreparing) gerarRelatorio();
         return;
       }
 
       state.step++;
-      if (state.step > baseQuestions.length) gerarRelatorio();
       render();
     }
 
     function prevStep() { if (state.step > 0) { state.step--; render(); } }
 
-    function handleFiles(input) {
+    function fileToDataURL(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = event => resolve(event.target.result);
+        reader.onerror = () => reject(new Error('Não foi possível ler uma das imagens.'));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function prepareImage(file) {
+      const original = await fileToDataURL(file);
+      const image = new Image();
+      await new Promise((resolve, reject) => {
+        image.onload = resolve;
+        image.onerror = () => reject(new Error('Uma das imagens não pôde ser aberta.'));
+        image.src = original;
+      });
+
+      const maxDimension = 2400;
+      const scale = Math.min(1, maxDimension / Math.max(image.naturalWidth, image.naturalHeight));
+      if (scale === 1 && file.size <= 4 * 1024 * 1024) return original;
+
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
+      canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
+      const context = canvas.getContext('2d');
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/webp', 0.9));
+      return blob ? fileToDataURL(blob) : original;
+    }
+
+    async function handleFiles(input) {
       const allowedTypes = new Set(['image/png', 'image/jpeg', 'image/webp']);
       const maxBytes = 8 * 1024 * 1024;
       const requested = Array.from(input.files);
@@ -565,11 +481,17 @@
       }
       state.images = [];
       if (files.length === 0) { renderUpload(); return; }
-      Promise.all(files.map(file => new Promise(resolve => {
-        const reader = new FileReader();
-        reader.onload = event => resolve(event.target.result);
-        reader.readAsDataURL(file);
-      }))).then(images => { state.images = images; renderUpload(); });
+      state.isPreparing = true;
+      state.analysisError = '';
+      renderUpload();
+      try {
+        state.images = await Promise.all(files.map(prepareImage));
+      } catch (error) {
+        state.analysisError = error.message;
+      } finally {
+        state.isPreparing = false;
+        renderUpload();
+      }
     }
 
     function renderReport() {
@@ -583,6 +505,7 @@
           <div class="block">
             <h3><span class="num">1</span> O que seu perfil comunica hoje</h3>
             <div class="frase-destaque">${h(r.comunicacaoAtual)}</div>
+            ${r.evidenciasVisuais?.length ? `<div class="simple-card"><span class="simple-label">O que observei nos prints</span><ul class="lista-detalhada">${r.evidenciasVisuais.map(item => `<li>${h(item)}</li>`).join('')}</ul></div>` : ''}
           </div>
           <div class="block">
             <h3><span class="num">2</span> O que você vende</h3>
@@ -638,7 +561,7 @@
           <p>Este é o registro visual do perfil analisado antes dos ajustes.</p>
           ${state.images[0] ? `<img class="profile-main" src="${state.images[0]}" alt="${captions[0]}">` : ''}
           <div class="profile-thumbs">${state.images.slice(1).map((img, index) => `<figure><img src="${img}" alt="${captions[index + 1] || `Print ${index + 2}`}"><figcaption class="profile-caption">${captions[index + 1] || `Print ${index + 2}`}</figcaption></figure>`).join('')}</div>
-          <p class="privacy-note">Os prints ficam neste aparelho como registro visual. As orientações acima usam as respostas e os textos informados no questionário.</p>
+          <p class="privacy-note">Os prints foram usados nesta análise e aparecem aqui como registro visual. O sistema não cria uma galeria nem guarda essas imagens.</p>
         </div>
         <div class="report-actions"><button class="btn btn-primary" onclick="window.print()">Salvar diagnóstico</button><button class="btn btn-ghost" onclick="location.reload()">Fazer novo diagnóstico</button></div>
       `;
